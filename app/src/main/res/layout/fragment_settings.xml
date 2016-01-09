@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/settings_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingRight="@dimen/settings_scroll_padding">
+
+
+        <!--credentials-->
+        <LinearLayout style="@style/settings_big_group">
+
+            <TextView
+                style="@style/settings_action_label"
+                android:text="Youtube channel ID" />
+
+            <EditText
+                android:id="@+id/settings_channel_id"
+                style="@style/settings_edit_text" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/settings_big_group">
+
+            <TextView
+                style="@style/settings_action_label"
+                android:text="App ID" />
+
+            <EditText
+                android:id="@+id/settings_app_id"
+                style="@style/settings_edit_text" />
+        </LinearLayout>
+
+
+        <!--memory allocation-->
+        <LinearLayout
+            android:id="@+id/settings_gr1"
+            style="@style/settings_big_group">
+
+            <TextView
+                style="@style/settings_action_label"
+                android:text="Memory allocated (MB)" />
+
+            <EditText
+                android:id="@+id/settings_memory_idd"
+                style="@style/settings_edit_text"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/settings_big_group">
+
+            <TextView
+                style="@style/settings_action_label"
+                android:text="Delete cache" />
+
+            <Button
+                android:id="@+id/delete_all_id"
+                android:layout_width="@dimen/text_field_width"
+                android:layout_height="wrap_content"
+                android:text="Delete cache"
+                android:textColor="#878787" />
+        </LinearLayout>
+
+        <!--shake controls-->
+        <LinearLayout style="@style/settings_big_group">
+
+            <TextView
+                style="@style/settings_action_label"
+                android:text="Enable volume controls" />
+
+            <CheckBox
+                android:id="@+id/settings_checkbox_vol_controls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/settings_item_padding_between" />
+        </LinearLayout>
+
+        <!--save/exit -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/settings_item_padding_bottom">
+
+            <Button
+                android:id="@+id/settings_save_id"
+                android:layout_width="@dimen/text_field_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Save Settings"
+                android:textColor="#878787" />
+
+            <Button
+                android:id="@+id/settings_discard_id"
+                android:layout_width="@dimen/text_field_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Exit"
+                android:textColor="#878787" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/purge_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:maxHeight="50dp"
+            android:maxWidth="50dp"
+            android:minHeight="50dp"
+            android:minWidth="50dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>
+
+    <!--
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+    -->

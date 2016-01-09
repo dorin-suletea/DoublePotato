@@ -1,0 +1,42 @@
+========================TODO
+
+
+
+-) error songs tab, and error flags
+-) make purge all delete files
+-)
+
+
+-) retry download action
+-) search bar
+-) disable setting sound to max or min volume when potato is running, (so the volume media controlls continue working)
+-) pretty up the songs fragment
+-) manage action interrup (no net) without crashing
+
+
+
+
+
+
+
+========================NOT SURE
+-) if convert fail, change the cancel button to "convert cancel" that will save the song as mp4 and restart the application
+
+
+
+========================DONE
+-) countdown latch for audio converter
+-) integrate converter to load bar
+-) back buttons implement
+-) refresh UI after download service stop
+-) play shuffle option
+-) play next/rev on shake
+-) pause/resume music on call
+-) synk or download on no net
+-) Make the ui persistant
+---) Store another local model for user operations
+---) this will persist the order and play positions of the playlists, on frag navigation
+-) enable shuffle recovery
+-) autoscroll on fragment reentry if it is playing shuffle
+-) app exit action
+-) app icon

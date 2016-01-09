@@ -1,0 +1,66 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+    <style name="DoublePotato.ActionButtons" parent="AppTheme">
+        <item name="android:textSize">10dp</item>
+    </style>
+
+    <style name="list_button_style">
+        <item name="android:maxHeight">@dimen/list_button_height</item>>
+        <item name="android:maxWidth">@dimen/list_button_width</item>>
+
+        <item name="android:layout_height">@dimen/list_button_height</item>>
+        <item name="android:layout_width">@dimen/list_button_width</item>>
+
+
+        <item name="android:layout_marginBottom">@dimen/list_button_margin</item>>
+        <item name="android:layout_marginTop">@dimen/list_button_margin</item>>
+    </style>
+
+    <style name="playback_button_style">
+        <item name="android:layout_height">@dimen/playback_button_height</item>
+        <item name="android:layout_width">@dimen/playback_button_width</item>
+        <item name="android:layout_marginLeft">@dimen/playback_button_margins</item>
+        <item name="android:layout_marginRight">@dimen/playback_button_margins</item>
+    </style>
+
+
+    <style name="settings_big_group">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingBottom">@dimen/settings_item_padding_bottom</item>
+    </style>
+
+    <style name="settings_small_group">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/settings_item_padding_between</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="settings_action_label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/settings_item_margin</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+
+    <style name="settings_edit_text">
+        <item name="android:layout_width">@dimen/text_field_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <!--<item name="android:lines">1</item>-->
+        <item name="android:textColor">#878787</item>
+    </style>
+
+
+
+
+
+</resources>

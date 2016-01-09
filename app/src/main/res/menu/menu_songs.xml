@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <!--
+    <item
+        android:id="@+id/action_play_all"
+        android:icon="@drawable/play_icon"
+        android:title=""
+        android:orderInCategory="100"
+        app:showAsAction="always" />-->
+
+    <item
+        android:id="@+id/action_shuffle_toggle"
+        android:icon="@drawable/shuffle_toggle_up"
+        android:title=""
+        android:checkable="true"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_playlistErrors"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="@string/action_playlist_errors"/>
+
+
+</menu>

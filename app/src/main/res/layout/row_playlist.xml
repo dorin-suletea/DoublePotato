@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/playlist_item_height">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.9">
+
+        <TextView
+            android:id="@+id/playlist_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="testPlaylist"
+            android:layout_weight="0.6"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.3"
+            android:paddingLeft="@dimen/playlist_components_list_item_padding"
+            android:paddingRight="@dimen/playlist_components_list_item_padding"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/playlist_download_current_song"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:layout_weight="0.2"
+                android:ellipsize="end"
+                android:text="Undefined song name"
+                android:gravity="center_horizontal"
+                android:paddingTop="@dimen/progress_label_top_padding"
+                android:singleLine="true"
+                android:textSize="@dimen/progress_current_action_text_size" />
+
+            <ProgressBar
+                android:id="@+id/playlist_download_progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="0.6"
+                android:indeterminate="false"
+                android:max="100"
+                android:minHeight="@dimen/progress_bar_height"
+                android:visibility="gone"
+                android:minWidth="@dimen/progress_bar_width"
+
+                android:progress="0"
+                android:progressDrawable="@drawable/progress_bar_shape" />
+
+            <TextView
+                android:id="@+id/playlist_download_completion_status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-8dp"
+                android:layout_weight="0.2"
+                android:gravity="center_horizontal"
+                android:paddingTop="@dimen/progress_label_top_padding"
+                android:text="x of y"
+                android:textSize="@dimen/progress_current_action_text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/download_playlist"
+        style="@style/list_button_style"
+        android:layout_gravity="center_vertical|right"
+        android:background="@drawable/download_icon" />
+
+    <Button
+        android:id="@+id/cancel_download_playlist"
+        style="@style/list_button_style"
+        android:background="@drawable/download_cancel_icon"
+        android:visibility="gone"
+        android:layout_gravity="center_vertical|right" />
+
+
+</LinearLayout>

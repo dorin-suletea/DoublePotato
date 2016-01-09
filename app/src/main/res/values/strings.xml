@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">DoublePotato</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_playlist_errors">Playlist Errors</string>
+    <string name="action_exit">Exit</string>
+
+    <string name="syc_model">Sync</string>
+    <string name="download">Download</string>
+    <string name="stop_download">Cancel</string>
+
+    <string name="empty_string"></string>
+</resources>
