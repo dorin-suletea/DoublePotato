@@ -1,7 +1,6 @@
 # DoublePotato
-
-What is: YouTube playlist offline player.
-  * This app will keep track of your youtube playlists and allow to play them in offline mode.
+YouTube playlist offline player. <br>
+This app will keep track of your youtube playlists and allow to play them in offline mode.
 
 ##### Features : #####
   * YouTube sync = extracts information about playlists created by an account.
