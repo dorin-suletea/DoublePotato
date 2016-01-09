@@ -20,9 +20,9 @@ What is: YouTube playlist offline player.
       
       
 ##### Disclaimer : 
-Downloading YouTube videos is forbidden by the Terms of Service (5.L).
-This is just a proof of concept application and should not be treated and used as such.
-The actual downloading process is done via a third party service and is not implemented by the application itself.
+>Downloading YouTube videos is forbidden by the Terms of Service (5.L).
+>This is just a proof of concept application and should not be treated and used as such.
+>The actual downloading process is done via a third party service and is not implemented by the application itself.
           
 ##### How to use (Android 5.1) :
     1 Build, install and start the .apk (see build instructions at the end of the document).
