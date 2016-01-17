@@ -46,10 +46,13 @@ public class DataBuilder {
     }
 
 
-    public String onSongDownloaded(String songFilename, String songID, String playlistID) {
+    public void onSongDownloaded(String songFilename, String songID, String playlistID) {
         YoutubePlayList playlist = LocalModelRoot.getReadInstance().getPlaylistByID(playlistID);
         YoutubeSong song = playlist.getSongByID(songID);
-        return convertToAac(songFilename, song);
+
+        song.setSongFileLocation(songFilename);
+        removeSongError(song.getId());
+        dbLinker.updateSongFile(song.getId(), songFilename);
     }
 
     public void onSongDownloadFail(String songID,YoutubeError error){
@@ -70,6 +73,10 @@ public class DataBuilder {
         onSongDownloadFail(songId, YoutubeError.NONE);
     }
 
+    /**
+     * Discontinued : ffpeg not stable, freeze
+     */
+    @Deprecated
     private String convertToAac(final String songFileName, final YoutubeSong song) {
         try {
             String convertedSongPath = FFConverter.getInstance().convertToMp3(songFileName);

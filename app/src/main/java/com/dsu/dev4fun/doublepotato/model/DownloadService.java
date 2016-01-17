@@ -102,17 +102,17 @@ public class DownloadService extends Service {
                                     try {
                                         File songFile = new WebYoutubeDownloader().fetchVideo(downloadURl, song.getName(), song.getId(), getSongProgressUpdateDelegate(), isRunning);
                                         if (songFile != null) {
-                                            onConversionStarting("Converting " + song.getName());
-                                            String convertedFileName = DataBuilder.getInstance().onSongDownloaded(songFile.getAbsolutePath(), song.getId(), playList.getId());
+                                            onConversionStarting("Saving " + song.getName());
+                                            DataBuilder.getInstance().onSongDownloaded(songFile.getAbsolutePath(), song.getId(), playList.getId());
                                             onConversionFinished();
-                                            currentMemoryBytes += BusinessLogicHelper.getFileSize(convertedFileName);
+                                            currentMemoryBytes += BusinessLogicHelper.getFileSize(songFile.getAbsolutePath());
                                             currentDownloadSongNameAUX = null;
                                         } else {
                                             onDownloadError(YoutubeError.FAIL_DOWNLOAD, song.getId(), playList.getId());
                                             Log.d("=!=", "Can't download song");
                                         }
                                     } catch (DownloadManualInterruptedException e) {
-                                        Log.d("=!=","Manually interrupted download");
+                                        Log.d("=!=", "Manually interrupted download");
                                         //do not do anything if manual interruption
                                     }
 

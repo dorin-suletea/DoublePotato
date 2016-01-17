@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.dsu.dev4fun.doublepotato.R;
@@ -13,7 +12,6 @@ import com.dsu.dev4fun.doublepotato.media.MediaPlayService;
 import com.dsu.dev4fun.doublepotato.media.MediaPlayServiceProxy;
 import com.dsu.dev4fun.doublepotato.model.DownloadService;
 import com.dsu.dev4fun.doublepotato.model.UserPreferences;
-import com.dsu.dev4fun.doublepotato.model.downloader.FFConverter;
 import com.dsu.dev4fun.doublepotato.model.meta.DataBuilder;
 import com.dsu.dev4fun.doublepotato.model.util.MethodWrapper;
 import com.dsu.dev4fun.doublepotato.ui.BusinessLogicHelper;
@@ -34,14 +32,14 @@ public class MainActivity extends AppCompatActivity {
         //load user prefs
         UserPreferences.getInstance().initialize(this);
 
-        //load converter
-        MethodWrapper<Boolean> onLoadLib = new MethodWrapper<Boolean>() {
-            @Override
-            public void execute(Boolean params) {
-                Log.d("=!=", "ffmpeg loaded " + params);
-            }
-        };
-        FFConverter.getInstance().loadNative(this, onLoadLib);
+        //load converter , discontinued
+        //MethodWrapper<Boolean> onLoadLib = new MethodWrapper<Boolean>() {
+        //    @Override
+        //    public void execute(Boolean params) {
+        //        Log.d("=!=", "ffmpeg loaded " + params);
+        //    }
+        // };
+        //FFConverter.getInstance().loadNative(this, onLoadLib);
 
         /**Initialize player proxy*/
         MediaPlayServiceProxy.getInstance().setup(this);

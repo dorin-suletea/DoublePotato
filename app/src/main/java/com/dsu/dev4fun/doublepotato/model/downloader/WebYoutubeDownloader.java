@@ -15,9 +15,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -26,6 +28,8 @@ import java.util.regex.Pattern;
 
 public class WebYoutubeDownloader {
     private final String SRC_TAG = "source";
+    private final String WEB_M_FORMAT_TAG = "mime=audio/webm";
+    private final String MP4_FORMAT_TAG = "mime=audio/mp4";
 
     private String executePost(String targetURL, String urlParameters) {
         HttpURLConnection connection = null;
@@ -82,8 +86,7 @@ public class WebYoutubeDownloader {
 
             String fileName = name + "-" + vidID + ".mp4";
             //replace all empty spaces with _ in order to be accepted by ffmpeg
-            fileName = fileName.replaceAll(" ","_");
-
+            fileName = fileName.replaceAll(" ", "_");
             outputFile = downloadStream(srcUrl, fileName, postProgress, isRunning);
         } catch (AppException e1) {
             Log.d("=!=", e1.getMessage());
@@ -104,11 +107,22 @@ public class WebYoutubeDownloader {
             }
         }
 
-        if (sourceUrls.isEmpty()) {
+        String streamURLWebM = null;
+        try {
+            for (String s : sourceUrls) {
+                if (URLDecoder.decode(s, "UTF-8").contains(MP4_FORMAT_TAG)) {
+                    streamURLWebM = s;
+                }
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        if (streamURLWebM == null) {
             throw new AppException("Keepvid bug,skip");
         }
 
-        return sourceUrls.get(0);
+        return streamURLWebM;
     }
 
     private List<String> extractUrls(String text) {

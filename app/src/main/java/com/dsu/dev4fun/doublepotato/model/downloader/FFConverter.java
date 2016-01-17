@@ -17,6 +17,10 @@ import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedExceptio
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Not stable enough
+ */
+@Deprecated
 public class FFConverter {
     private static FFConverter instance = new FFConverter();
     private FFmpeg wrappedFFmpeg;
