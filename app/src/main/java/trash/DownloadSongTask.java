@@ -34,7 +34,7 @@ public class DownloadSongTask extends AsyncTask<YoutubeSong, Void, Boolean> {
             url = KEEPVID_URL + "?url=";
             Log.d("ID", song.getId());
             url += URLEncoder.encode(YOUTUBE_URL + song.getId());
-            //new WebYoutubeDownloader().fetchVideo(url, song.getName(), song.getId());
+            //new KeepvidDownloader().fetchVideo(url, song.getName(), song.getId());
 
         }
         String http = "http://keepvid.com/?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DJ2X5mJ3HDYE";

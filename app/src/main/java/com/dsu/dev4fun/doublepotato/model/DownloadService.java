@@ -1,11 +1,12 @@
 package com.dsu.dev4fun.doublepotato.model;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.dsu.dev4fun.doublepotato.model.downloader.WebYoutubeDownloader;
+import com.dsu.dev4fun.doublepotato.model.downloader.YoutubeDirectDownloader;
 import com.dsu.dev4fun.doublepotato.model.meta.DataBuilder;
 import com.dsu.dev4fun.doublepotato.model.meta.pojo.YoutubeError;
 import com.dsu.dev4fun.doublepotato.model.meta.pojo.YoutubePlayList;
@@ -16,7 +17,6 @@ import com.dsu.dev4fun.doublepotato.model.util.MethodWrapper;
 import com.dsu.dev4fun.doublepotato.ui.BusinessLogicHelper;
 
 import java.io.File;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -57,8 +57,8 @@ public class DownloadService extends Service {
     private List<YoutubePlayList> downloadQueue;
     private Thread workerThread;
     private AtomicBoolean isRunning;
-    //do not download songs that are longer than 10 min
-    private final long MAX_ACCEPTED_SONG_DURATION = 600;
+    //do not download songs that are longer than 20 min
+    private final long MAX_ACCEPTED_SONG_DURATION = 1200;
 
 
     private String currentDownloadSongNameAUX;
@@ -79,6 +79,7 @@ public class DownloadService extends Service {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
+                YoutubeDirectDownloader downloader = new YoutubeDirectDownloader();
                 while (isRunning.get()) {
                     for (YoutubePlayList playList : downloadQueue) {
                         for (YoutubeSong song : playList.getSongs()) {
@@ -86,41 +87,39 @@ public class DownloadService extends Service {
                                 stopSelf();
                                 return;
                             }
-                            //byte to mb
                             if (currentMemoryBytes / 1000000 >= UserPreferences.getInstance().getMemoryAllocation()) {
                                 sendOutOfStorageSpace();
                                 stopSelf();
                                 return;
                             }
-                            if (!song.isSavedLocally()) {
-                                Log.d("=!=", "Song dur" + song.getDuration());
-                                if (song.getDuration() < MAX_ACCEPTED_SONG_DURATION) {
-                                    Log.d("=!=", "Downloading new song");
-                                    currentDownloadSongNameAUX = song.getName();
-                                    onNewSongDownloading(song.getName(), playList.getId());
-                                    String downloadURl = KEEPVID_URL + "?url=" + URLEncoder.encode(YOUTUBE_URL + song.getId());
-                                    try {
-                                        File songFile = new WebYoutubeDownloader().fetchVideo(downloadURl, song.getName(), song.getId(), getSongProgressUpdateDelegate(), isRunning);
-                                        if (songFile != null) {
-                                            onConversionStarting("Saving " + song.getName());
-                                            DataBuilder.getInstance().onSongDownloaded(songFile.getAbsolutePath(), song.getId(), playList.getId());
-                                            onConversionFinished();
-                                            currentMemoryBytes += BusinessLogicHelper.getFileSize(songFile.getAbsolutePath());
-                                            currentDownloadSongNameAUX = null;
-                                        } else {
-                                            onDownloadError(YoutubeError.FAIL_DOWNLOAD, song.getId(), playList.getId());
-                                            Log.d("=!=", "Can't download song");
-                                        }
-                                    } catch (DownloadManualInterruptedException e) {
-                                        Log.d("=!=", "Manually interrupted download");
-                                        //do not do anything if manual interruption
-                                    }
-
-                                } else {
-                                    Log.d("=!=", "Song too long , skipping");
-                                    onDownloadError(YoutubeError.TOO_BIG, song.getId(), playList.getId());
-                                }
+                            if (song.isSavedLocally()) {
+                                continue;
                             }
+                            if (song.getDuration() > MAX_ACCEPTED_SONG_DURATION) {
+                                //Song too long , skipping
+                                onDownloadError(YoutubeError.TOO_BIG, song.getId(), playList.getId());
+                                continue;
+                            }
+
+                            currentDownloadSongNameAUX = song.getName();
+                            onNewSongDownloading(song.getName(), playList.getId());
+                            try {
+                                File songFile = downloader.fetchVideo(song.getId(), song.getName(), getSongProgressUpdateDelegate(), isRunning, DownloadService.this.getApplicationContext());
+                                if (songFile == null) {
+                                    onDownloadError(YoutubeError.FAIL_DOWNLOAD, song.getId(), playList.getId());
+                                    continue;
+                                }
+
+                                onConversionStarting("Saving " + song.getName());
+                                DataBuilder.getInstance().onSongDownloaded(songFile.getAbsolutePath(), song.getId(), playList.getId());
+                                onConversionFinished();
+                                currentMemoryBytes += BusinessLogicHelper.getFileSize(songFile.getAbsolutePath());
+                                currentDownloadSongNameAUX = null;
+
+                            } catch (DownloadManualInterruptedException e) {
+                                //do not do anything if manual interruption
+                            }
+
                         }
                     }
                     isRunning.set(false);

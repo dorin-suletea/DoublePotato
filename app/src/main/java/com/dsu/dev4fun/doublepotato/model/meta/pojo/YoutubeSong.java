@@ -67,6 +67,11 @@ public class YoutubeSong extends YoutubeItem {
     }
 
     @Override
+    public int hashCode() {
+        return super.hashCode() + playlistID.hashCode();
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

@@ -34,7 +34,7 @@ public class UserPreferences {
     }
     public void initialize (Activity mainActivity) {
         preferences = mainActivity.getSharedPreferences(PREFERENCES_KEY, 0);
-        memoryAllocation = preferences.getInt(MEM_VAL, 1240);
+        memoryAllocation = preferences.getInt(MEM_VAL, 4960);
         channelId = preferences.getString(CHANEL_VAL, "UCHphW02wxlMKQGPJBkIei0w");
         appId = preferences.getString(APP_VAL, "AIzaSyB_TSE4ZG_9WFYCilHjWGAP1xYn9KwygA0");
         volControlsEnabled = preferences.getBoolean(SHAKE_VAL, true);

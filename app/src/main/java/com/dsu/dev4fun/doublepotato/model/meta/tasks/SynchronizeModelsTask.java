@@ -84,11 +84,7 @@ public class SynchronizeModelsTask extends AsyncTask<Void, Void, Void> {
                     String playlistID = playlist.getId();
                     String songName = parsedSong[1];
                     String songThumbnail = parsedSong[2];
-
-                    Log.d("=!==",songName);
-                    //get duration
                     String metadataString = youtubeLinker.getSongMetadata(songId);
-                    Log.d("=!=",metadataString);
                     String duration = youtubeLinker.getJsonHelper().extractSongDuration(metadataString);
                     Long songDuration = 0L;
                     if (duration!=null) {

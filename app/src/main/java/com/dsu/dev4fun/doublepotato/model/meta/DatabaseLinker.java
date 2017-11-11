@@ -124,10 +124,10 @@ public class DatabaseLinker extends SQLiteOpenHelper {
     private void saveSongsForPlaylist(String playlistYoutubeID, List<YoutubeSong> songs) {
         List<YoutubeSong> existingSongs = loadSongsByPlaylist(playlistYoutubeID);
         //use sets, don't allow song duplication
-        Set<YoutubeSong> songsToAdd = new HashSet<>();
+        List<YoutubeSong> songsToAdd = new ArrayList<>();
 
         for (YoutubeSong newSong : songs) {
-            if (!existingSongs.contains(newSong) && !newSong.getName().equals(DELETED_VIDEO_NAME_TAG)) {
+            if (!existingSongs.contains(newSong) && !newSong.getName().equals(DELETED_VIDEO_NAME_TAG) && !songsToAdd.contains(newSong)) {
                 songsToAdd.add(newSong);
             }
         }
