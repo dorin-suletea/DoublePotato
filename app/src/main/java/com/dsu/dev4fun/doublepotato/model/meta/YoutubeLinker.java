@@ -27,7 +27,6 @@ public class YoutubeLinker {
     }
 
     public String getPlaylists() throws ConnectionException {
-        //https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId=UCHphW02wxlMKQGPJBkIei0w&key=AIzaSyB_TSE4ZG_9WFYCilHjWGAP1xYn9KwygA0
         String playlistURLString = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId=" +
                 channelID +
                 "&key=" + applicationKey;
