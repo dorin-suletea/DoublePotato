@@ -1,11 +1,9 @@
 package com.dsu.dev4fun.doublepotato.model;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
-
 import com.dsu.dev4fun.doublepotato.model.downloader.YoutubeDirectDownloader;
 import com.dsu.dev4fun.doublepotato.model.meta.DataBuilder;
 import com.dsu.dev4fun.doublepotato.model.meta.pojo.YoutubeError;
@@ -16,7 +14,7 @@ import com.dsu.dev4fun.doublepotato.model.util.DownloadManualInterruptedExceptio
 import com.dsu.dev4fun.doublepotato.model.util.MethodWrapper;
 import com.dsu.dev4fun.doublepotato.ui.BusinessLogicHelper;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -27,6 +25,7 @@ public class DownloadService extends Service {
      */
     private final static String KEEPVID_URL = "http://keepvid.com/";
     private final static String YOUTUBE_URL = "https://www.youtube.com/watch?v=";
+    private final static String LOGFILE_PATH = "sdcard/doublepotato.log";
 
     /**
      * Outgoing intent keys*
@@ -109,7 +108,6 @@ public class DownloadService extends Service {
                                     onDownloadError(YoutubeError.FAIL_DOWNLOAD, song.getId(), playList.getId());
                                     continue;
                                 }
-
                                 onConversionStarting("Saving " + song.getName());
                                 DataBuilder.getInstance().onSongDownloaded(songFile.getAbsolutePath(), song.getId(), playList.getId());
                                 onConversionFinished();
@@ -118,7 +116,12 @@ public class DownloadService extends Service {
 
                             } catch (DownloadManualInterruptedException e) {
                                 //do not do anything if manual interruption
+                            }catch(Exception e){
+                                StringWriter errorWriter = new StringWriter();
+                                e.printStackTrace(new PrintWriter(errorWriter));
+                                logError(errorWriter.toString()+"\n");
                             }
+
 
                         }
                     }
@@ -134,7 +137,21 @@ public class DownloadService extends Service {
         YoutubeSong saveAbleSong = playlist.getSongByID(songId);
         saveAbleSong.setError(error);
         DataBuilder.getInstance().onSongDownloadFail(songId, error);
+    }
 
+    private void logError(String message)  {
+        try {
+            File logFile = new File(LOGFILE_PATH);
+            if (!logFile.exists()) {
+                logFile.createNewFile();
+            }
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true));
+            writer.append(message);
+            writer.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

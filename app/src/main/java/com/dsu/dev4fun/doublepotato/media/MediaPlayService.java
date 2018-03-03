@@ -24,7 +24,7 @@ public class MediaPlayService extends Service implements OnCompletionListener, O
     public static final String SET_QUEUE_ACTION = "PLAY_QUEUE_KEY";
     public static final String SET_QUEUE_KEY = "PLAY_QUEUE_KEY";
 
-    public static final String PLAY_PAUSE_ACTION = "PLAY_PAUSE_AssssCTION";
+    public static final String PLAY_PAUSE_ACTION = "PLAY_PAUSE_ACTION";
     public static final String STOP_SERVICE_ACTION = "STOP_SERVICE_ACTION";
 
     public static final String PLAY_SONG_ACTION = "PLAY_SONG_ACTION";
